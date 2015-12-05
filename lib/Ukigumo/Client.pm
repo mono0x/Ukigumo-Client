@@ -284,7 +284,7 @@ sub send_to_server {
             vc_log   => $self->vc_log,
             body     => [$log_filename || $self->logfh->filename],
             compare_url => $self->compare_url,
-            elapsed_time_sec => $self->elapsed_time_sec,
+            (defined $self->elapsed_time_sec ? (elapsed_time_sec => $self->elapsed_time_sec) : ()),
         ];
     my $res = $ua->request($req);
     $res->is_success or die "Cannot send a report to @{[ $self->server_url ]}/api/v1/report/add:\n" . $res->as_string;
